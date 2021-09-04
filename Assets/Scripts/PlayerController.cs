@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour
 
     Vector2 workspace = Vector2.zero;
 
+    Vector2 lookDirection;
+
     private float xInput = 0;
 
     private int nutCount;
@@ -57,6 +59,7 @@ public class PlayerController : MonoBehaviour
         ApplyMovementVelocity();
     }
 
+
     public void Jump(InputAction.CallbackContext context)
     {
         if (context.started && jumpsRemaining > 0)
@@ -80,6 +83,25 @@ public class PlayerController : MonoBehaviour
         xInput = input.x;
     }
 
+    public void Interact(InputAction.CallbackContext context)
+    {
+        //if (context.started) 
+        {
+            Debug.Log("Interact is hit");
+            RaycastHit2D hit = Physics2D.Raycast(rb2d.position + Vector2.up * 0.2f, lookDirection, 15f, LayerMask.GetMask("NPC"));
+            if (hit.collider != null)
+            {
+                Debug.Log("Raycast has hit the object " + hit.collider.gameObject);
+            }
+        }
+    }
+
+
+    void IfInRangeOfNpc()
+    {
+        
+    }
+
     void ApplyMovementVelocity()
     {
         workspace.x = xInput * moveSpeed;
@@ -96,9 +118,16 @@ public class PlayerController : MonoBehaviour
     void CheckWhereToFace ()
 	{
 		if (xInput > 0 && spriteRenderer.flipX)
+        {
 			FlipSprite();
+            lookDirection = new Vector2(1,0);
+        }
 		else if (xInput < 0 && !spriteRenderer.flipX )
-			FlipSprite();		
+        {
+            FlipSprite();		
+            lookDirection = new Vector2(-1,0);
+        }
+
 	}
 
 
