@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,8 +11,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] int moveSpeed = 100;
     [SerializeField] Transform groundCheck;
     [SerializeField] float groundCheckRadius = 10.2f;
-    
-    bool isGrounded;
+    private int maxjumps = 2;
+    private int jumpsRemaining;
+
     [SerializeField] LayerMask groundLayers;
 
     Vector2 workspace = Vector2.zero;
@@ -19,7 +21,7 @@ public class PlayerController : MonoBehaviour
     private float xInput = 0;
 
     private int nutCount;
-
+    
     SpriteRenderer spriteRenderer;
     
     // Start is called before the first frame update
@@ -27,12 +29,13 @@ public class PlayerController : MonoBehaviour
     {
         rb2d = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        jumpsRemaining = maxjumps;
     }
 
     void OnCollisionEnter2D(Collision2D col)
     {
         var nut = col.gameObject.GetComponent<NutController>();
-        if(nut != null)
+        if (nut != null)
         {
             nut.PickUp();
             nutCount++;
@@ -40,24 +43,35 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
-
     void Update()
     {
+        if (IsOnGround() && rb2d.velocity.y <= 0)
+        {
+            jumpsRemaining = maxjumps;
+        }
+        CheckWhereToFace ();
     }
 
     void FixedUpdate()
     {
-       ApplyMovementVelocity();
-       CheckWhereToFace ();
-       isGrounded = IsOnGround();
+        ApplyMovementVelocity();
     }
+
     public void Jump(InputAction.CallbackContext context)
     {
-        if(context.started && isGrounded)
+        if (context.started && jumpsRemaining > 0)
         {
-            rb2d.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+            jump();
         }
+    }
+
+    private void jump()
+    {
+        workspace.x = rb2d.velocity.x;
+        workspace.y = 0;
+        rb2d.velocity = workspace;
+        rb2d.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+        jumpsRemaining--;
     }
 
     public void Move(InputAction.CallbackContext context)
@@ -66,7 +80,7 @@ public class PlayerController : MonoBehaviour
         xInput = input.x;
     }
 
-    void ApplyMovementVelocity() 
+    void ApplyMovementVelocity()
     {
         workspace.x = xInput * moveSpeed;
         workspace.y = rb2d.velocity.y;
@@ -76,7 +90,7 @@ public class PlayerController : MonoBehaviour
 
     bool IsOnGround()
     {
-        return Physics2D.Raycast(groundCheck.position, Vector3.down, 1f, groundLayers);
+        return Physics2D.Raycast(groundCheck.position, Vector2.down, 0.1f, groundLayers);
     }
 
     void CheckWhereToFace ()

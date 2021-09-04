@@ -274,6 +274,10 @@ PrefabInstance:
       value: Squirrel
       objectReference: {fileID: 0}
     - target: {fileID: 8468380814781452469, guid: 402cebe6c1ab93c4cb61820050cddb44, type: 3}
+      propertyPath: m_Constraints
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8468380814781452469, guid: 402cebe6c1ab93c4cb61820050cddb44, type: 3}
       propertyPath: m_GravityScale
       value: 5
       objectReference: {fileID: 0}

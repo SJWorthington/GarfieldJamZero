@@ -7,6 +7,9 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/../Ori Bash/Assets/Scripts/Player/PlayerStateMachine/Player.cs" root0="SKIP_HIGHLIGHTING" />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
@@ -54,6 +57,7 @@
       <updated>1630772897056</updated>
       <workItem from="1630772909003" duration="293000" />
       <workItem from="1630773249156" duration="110000" />
+      <workItem from="1630774354639" duration="3087000" />
     </task>
     <servers />
   </component>
