@@ -19,11 +19,14 @@ public class PlayerController : MonoBehaviour
     private float xInput = 0;
 
     private int nutCount;
+
+    SpriteRenderer spriteRenderer;
     
     // Start is called before the first frame update
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void OnCollisionEnter2D(Collision2D col)
@@ -37,9 +40,16 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
+
+    void Update()
+    {
+    }
+
     void FixedUpdate()
     {
        ApplyMovementVelocity();
+       CheckWhereToFace ();
        isGrounded = IsOnGround();
     }
     public void Jump(InputAction.CallbackContext context)
@@ -52,7 +62,8 @@ public class PlayerController : MonoBehaviour
 
     public void Move(InputAction.CallbackContext context)
     {
-        xInput = context.ReadValue<Vector2>().x;
+        var input = context.ReadValue<Vector2>();
+        xInput = input.x;
     }
 
     void ApplyMovementVelocity() 
@@ -60,10 +71,25 @@ public class PlayerController : MonoBehaviour
         workspace.x = xInput * moveSpeed;
         workspace.y = rb2d.velocity.y;
         rb2d.velocity = workspace;
+        
     }
 
     bool IsOnGround()
     {
         return Physics2D.Raycast(groundCheck.position, Vector3.down, 1f, groundLayers);
+    }
+
+    void CheckWhereToFace ()
+	{
+		if (xInput > 0 && spriteRenderer.flipX)
+			FlipSprite();
+		else if (xInput < 0 && !spriteRenderer.flipX )
+			FlipSprite();		
+	}
+
+
+    private void FlipSprite()
+    {
+        spriteRenderer.flipX = !spriteRenderer.flipX;
     }
 }
