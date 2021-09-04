@@ -17,11 +17,24 @@ public class PlayerController : MonoBehaviour
     Vector2 workspace = Vector2.zero;
 
     private float xInput = 0;
+
+    private int nutCount;
     
     // Start is called before the first frame update
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
+    }
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        var nut = col.gameObject.GetComponent<NutController>();
+        if(nut != null)
+        {
+            nut.PickUp();
+            nutCount++;
+            Debug.Log(nutCount);
+        }
     }
 
     void FixedUpdate()
@@ -51,6 +64,6 @@ public class PlayerController : MonoBehaviour
 
     bool IsOnGround()
     {
-        return (Physics2D.Raycast(groundCheck.position, Vector3.down, 1f, groundLayers));
+        return Physics2D.Raycast(groundCheck.position, Vector3.down, 1f, groundLayers);
     }
 }
