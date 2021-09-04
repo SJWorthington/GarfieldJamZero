@@ -51,8 +51,6 @@ public class PlayerController : MonoBehaviour
 
     bool IsOnGround()
     {
-        var hello = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayers);
-        Debug.Log($"groundcheck is {hello}");
-        return hello;
+        return (Physics2D.Raycast(groundCheck.position, Vector3.down, 1f, groundLayers));
     }
 }
