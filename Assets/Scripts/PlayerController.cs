@@ -119,12 +119,12 @@ public class PlayerController : MonoBehaviour
 
     void CheckWhereToFace ()
 	{
-		if (xInput > 0 && spriteRenderer.flipX)
+		if (xInput > 0 && !spriteRenderer.flipX)
         {
 			FlipSprite();
             lookDirection = new Vector2(1,0);
         }
-		else if (xInput < 0 && !spriteRenderer.flipX )
+		else if (xInput < 0 && spriteRenderer.flipX )
         {
             FlipSprite();		
             lookDirection = new Vector2(-1,0);
