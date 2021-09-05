@@ -88,18 +88,20 @@ public class PlayerController : MonoBehaviour
         //if (context.started) 
         {
             Debug.Log("Interact is hit");
-            RaycastHit2D hit = Physics2D.Raycast(rb2d.position + Vector2.up * 0.2f, lookDirection, 15f, LayerMask.GetMask("NPC"));
-            if (hit.collider != null)
-            {
-                Debug.Log("Raycast has hit the object " + hit.collider.gameObject);
-            }
+            IfInRangeOfNpc();
+            
         }
     }
 
 
     void IfInRangeOfNpc()
     {
-        
+        RaycastHit2D hit = Physics2D.Raycast(rb2d.position + Vector2.up * 0.2f, lookDirection, 15f, LayerMask.GetMask("NPC"));
+            if (hit.collider != null)
+            {
+                NpcController character = hit.collider.GetComponent<NpcController>();
+                character.DisplayDialog();
+            }
     }
 
     void ApplyMovementVelocity()
