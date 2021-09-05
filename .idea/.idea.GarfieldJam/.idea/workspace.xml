@@ -13,6 +13,8 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+        <option value="$PROJECT_DIR$/Assets/Scripts/Interfaces/IInteractable.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/DoorTrigger.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/PlayerController.cs" />
       </list>
     </option>
@@ -58,6 +60,7 @@
       <workItem from="1630772909003" duration="293000" />
       <workItem from="1630773249156" duration="110000" />
       <workItem from="1630774354639" duration="3087000" />
+      <workItem from="1630851593158" duration="4646000" />
     </task>
     <servers />
   </component>

@@ -14,6 +14,10 @@ public class PlayerController : MonoBehaviour
     private int maxjumps = 2;
     private int jumpsRemaining;
 
+    private bool isInDoorRange = false;
+
+    private InteractableBehaviour currentInteractable = null;
+
     [SerializeField] LayerMask groundLayers;
 
     Vector2 workspace = Vector2.zero;
@@ -23,9 +27,9 @@ public class PlayerController : MonoBehaviour
     private float xInput = 0;
 
     private int nutCount;
-    
+
     SpriteRenderer spriteRenderer;
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -51,7 +55,8 @@ public class PlayerController : MonoBehaviour
         {
             jumpsRemaining = maxjumps;
         }
-        CheckWhereToFace ();
+
+        CheckWhereToFace();
     }
 
     void FixedUpdate()
@@ -85,11 +90,14 @@ public class PlayerController : MonoBehaviour
 
     public void Interact(InputAction.CallbackContext context)
     {
-        //if (context.started) 
         {
             Debug.Log("Interact is hit");
             IfInRangeOfNpc();
-            
+        }
+
+        if (context.started)
+        {
+            currentInteractable.interactWith();
         }
     }
 
@@ -97,11 +105,11 @@ public class PlayerController : MonoBehaviour
     void IfInRangeOfNpc()
     {
         RaycastHit2D hit = Physics2D.Raycast(rb2d.position + Vector2.up * 0.2f, lookDirection, 15f, LayerMask.GetMask("NPC"));
-            if (hit.collider != null)
-            {
-                NpcController character = hit.collider.GetComponent<NpcController>();
-                character.DisplayDialog();
-            }
+        if (hit.collider != null)
+        {
+            NpcController character = hit.collider.GetComponent<NpcController>();
+            character.DisplayDialog();
+        }
     }
 
     void ApplyMovementVelocity()
@@ -109,7 +117,6 @@ public class PlayerController : MonoBehaviour
         workspace.x = xInput * moveSpeed;
         workspace.y = rb2d.velocity.y;
         rb2d.velocity = workspace;
-        
     }
 
     bool IsOnGround()
@@ -117,24 +124,27 @@ public class PlayerController : MonoBehaviour
         return Physics2D.Raycast(groundCheck.position, Vector2.down, 0.1f, groundLayers);
     }
 
-    void CheckWhereToFace ()
-	{
-		if (xInput > 0 && !spriteRenderer.flipX)
+    void CheckWhereToFace()
+    {
+        if (xInput > 0 && !spriteRenderer.flipX)
         {
-			FlipSprite();
-            lookDirection = new Vector2(1,0);
+            FlipSprite();
+            lookDirection = new Vector2(1, 0);
         }
-		else if (xInput < 0 && spriteRenderer.flipX )
+        else if (xInput < 0 && spriteRenderer.flipX)
         {
-            FlipSprite();		
-            lookDirection = new Vector2(-1,0);
+            FlipSprite();
+            lookDirection = new Vector2(-1, 0);
         }
-
-	}
-
+    }
 
     private void FlipSprite()
     {
         spriteRenderer.flipX = !spriteRenderer.flipX;
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        currentInteractable = other.GetComponent<InteractableBehaviour>();
     }
 }
