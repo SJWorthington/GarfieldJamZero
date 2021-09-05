@@ -10,6 +10,7 @@
           <e p="AbstractBehaviours" t="Include">
             <e p="InteractableBehaviour.cs" t="Include" />
           </e>
+          <e p="DoorConnectionManager.cs" t="Include" />
           <e p="DoorTrigger.cs" t="Include" />
           <e p="NpcController.cs" t="Include" />
           <e p="NutController.cs" t="Include" />

@@ -30,9 +30,19 @@ public class PlayerController : MonoBehaviour
 
     SpriteRenderer spriteRenderer;
 
+    private DoorConnectionManager _doorConnectionManager;
+
     // Start is called before the first frame update
     void Start()
     {
+        _doorConnectionManager = FindObjectOfType<DoorConnectionManager>();
+        var doorSpawnPos = _doorConnectionManager.useSpawnPosition();
+        
+        if (doorSpawnPos.HasValue)
+        {
+            transform.position = doorSpawnPos.Value;
+        }
+        
         rb2d = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         jumpsRemaining = maxjumps;

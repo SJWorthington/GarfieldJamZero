@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 public class DoorTrigger : InteractableBehaviour
 {
     [SerializeField] private TextMeshProUGUI doorTextUI;
+    [SerializeField] private String connectingSceneName;
+    [SerializeField] private Vector2 connectingDoorLocation;
     private String doorText = "Press B to enter";
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -20,6 +22,7 @@ public class DoorTrigger : InteractableBehaviour
 
     public override void interactWith()
     {
-        SceneManager.LoadSceneAsync("SampleScene");
+        FindObjectOfType<DoorConnectionManager>().setPos(connectingDoorLocation);
+        SceneManager.LoadSceneAsync(connectingSceneName);
     }
 }
