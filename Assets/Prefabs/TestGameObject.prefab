@@ -41,9 +41,9 @@ GameObject:
   - component: {fileID: 988434731134993784}
   - component: {fileID: 988434731134993785}
   - component: {fileID: 8468380814781452469}
-  - component: {fileID: 7577020873951858957}
   - component: {fileID: 517749822635507868}
   - component: {fileID: 2081569509}
+  - component: {fileID: 8739909298560935252}
   m_Layer: 6
   m_Name: TestGameObject
   m_TagString: Untagged
@@ -106,12 +106,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a994030addaeae54f969b454d2001c5a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 996f4d96ac6ca7542bab206511d6db4e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.64, y: 0.32}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -132,28 +132,12 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 5
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!58 &7577020873951858957
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 988434731134993790}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
+  m_Constraints: 4
 --- !u!114 &517749822635507868
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,6 +243,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: ff71b117-ccfd-4bd1-a27c-a94b1957372b
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2081569509}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: Interact
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 8d769d43-6482-43f8-9b50-454090089dcd
+    m_ActionName: Player/Interact[/XInputControllerWindows/buttonEast]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: Player
@@ -276,10 +276,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33c1c8bab1181604fa45da9d7524661b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 10
+  jumpForce: 18
   moveSpeed: 10
   groundCheck: {fileID: 986507271}
-  groundCheckRadius: 0.5
+  groundCheckRadius: 0.7
   groundLayers:
     serializedVersion: 2
     m_Bits: 512
+--- !u!70 &8739909298560935252
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 988434731134993790}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.12696245, y: -0.0868667}
+  m_Size: {x: 2.5967681, y: 0.9442417}
+  m_Direction: 1
